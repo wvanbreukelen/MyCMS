@@ -1,0 +1,13 @@
+{
+    "name": "wvanbreukelen/my_cms",
+    "description": "A simple CMS application builded on Symfony And Laravel Components",
+    "authors": [
+        {
+            "name": "wvanbreukelen",
+            "email": "ikwillerenprogrammeren@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "4.0"
+    }
+}
