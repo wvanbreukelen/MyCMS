@@ -6,9 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
     'Illuminate\\Support' => array($vendorDir . '/illuminate/support'),
+    'Illuminate\\Session' => array($vendorDir . '/illuminate/session'),
+    'Illuminate\\Http' => array($vendorDir . '/illuminate/http'),
     'Illuminate\\Events' => array($vendorDir . '/illuminate/events'),
+    'Illuminate\\Encryption' => array($vendorDir . '/illuminate/encryption'),
     'Illuminate\\Database' => array($vendorDir . '/illuminate/database'),
+    'Illuminate\\Cookie' => array($vendorDir . '/illuminate/cookie'),
     'Illuminate\\Container' => array($vendorDir . '/illuminate/container'),
+    'Illuminate\\Cache' => array($vendorDir . '/illuminate/cache'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
 );

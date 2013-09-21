@@ -1,7 +1,22 @@
 <?php
 
-$serviceProviders = array(
+$packages = array(
+    'Database',
+    'Router',
 
-	'wvanbreukelen\MyCMS\Database\DatabaseServiceProvider',
+    
+);
+
+$serviceProviders = array(
+	'MyCMS\Database\DatabaseServiceProvider',
+	'MyCMS\Router\RouterServiceProvider',
+
+
+);
+
+$aliases = array(
+	'App' => 'MyCMS\Application',
+	'File' => 'MyCMS\File',
+	'Route' => 'MyCMS\Routing\RouteInterface',
 
 );

@@ -1,6 +1,6 @@
-<?php namespace wvanbreukelen\MyCMS;
+<?php namespace MyCMS;
 
-use wvanbreukelen\MyCMS\Package;
+use MyCMS\Package;
 
 abstract class ServiceProvider extends Package 
 {
@@ -8,10 +8,12 @@ abstract class ServiceProvider extends Package
 	protected static $providers = array();
 	protected static $param = array();
 	public $holding;
+	protected $packageObjects = array();
 
 	abstract public function boot();
+	abstract protected function register();
 
-	public function register($params = array())
+	public function registerProvider($params = array())
 	{
 		self::$providers[] = get_class($this);
 		$params['packageObject'] = get_class($this);
@@ -33,11 +35,31 @@ abstract class ServiceProvider extends Package
 		return self::$param[$provider];
 	}
 
+	protected function guessNamespaces()
+	{
+		foreach ($this->packageObjects as $object)
+		{
+			
+		}
+	}
+
 	protected function access(array $packages = array())
 	{
+		$result = array();
 		foreach ($packages as $package)
-		{	
-			$this->load();
+		{
+			$pName = explode('\\', $package);
+			$pName = end($pName);
+			$result[$pName] = $this->loadFormCore($package);
 		}
+		return $result;
+	}
+
+	protected function loadFormCore($package)
+	{
+		// Load the core element by this namespace
+		//require(BASE_PATH . 'MyCMS' . DS . 'Database' . DS . 'DatabaseClass.php');
+		return new $package;
+		
 	}
 }

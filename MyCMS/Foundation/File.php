@@ -1,7 +1,27 @@
-<?php namespace wvanbreukelen\MyCMS;
+<?php namespace MyCMS;
 
 class File
 {
+
+	public function add(array $files = array())
+	{
+		foreach ($files as $file)
+		{
+
+			if (self::exists($file))
+			{
+				require($file);
+			} else {
+				echo 'File ' . $file . ' is not found!';
+			}
+		}
+	}
+
+	public function getNamespace()
+	{
+		return __NAMESPACE__;
+	}
+
 	public static function requireFile($filePath)
 	{
 		require($filePath);

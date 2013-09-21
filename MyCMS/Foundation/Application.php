@@ -1,6 +1,9 @@
-<?php namespace wvanbreukelen\MyCMS;
+<?php namespace MyCMS;
 
-use wvanbreukelen\MyCMS\ServiceProvider;
+use MyCMS\ServiceProvider;
+use MyCMS\Alias\AliasLoader;
+use MyCMS\Package;
+use MyCMS\Http;
 
 class Application
 {
@@ -12,13 +15,55 @@ class Application
 		self::$packages[$parameters['packageObject']['name']] = new $parameters['packageObject']['value'];
 	}
 
-	public function printPackages()
-	{
-		print_r(self::$packages);
-	}
-
 	public static function accessPackage($package)
 	{
-		return $this->packages[$package];
+		return self::$packages[$package];
+	}
+
+	public function loadAliases()
+	{
+		global $aliases;
+
+		$aliasLoader = new AliasLoader();
+
+		foreach ($aliases as $aliasName => $class)
+		{
+			$aliasLoader->createAlias($aliasName, $class);
+		}
+	}
+
+	public function loadPackages()
+	{
+		global $packages;
+
+		foreach ($packages as $package)
+		{
+			Package::load($package);
+		}
+	}
+
+	public function loadProviders()
+	{
+		Package::loadProviders();
+	}
+
+
+
+	public function shutdown()
+	{
+
+		foreach (Package::getProvidersInstance() as $provider)
+		{
+			if (method_exists($provider, 'finish'))
+			{
+				$provider->finish();
+			}
+		}
+	}
+
+	public function getURI()
+	{
+		$html = new Http();
+		echo $html->path();
 	}
 }
